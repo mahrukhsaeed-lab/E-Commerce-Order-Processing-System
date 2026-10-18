@@ -37,21 +37,28 @@ orders = [
 
 valid_orders=[]
 invalid_orders=[]
+
 def validate_orders(orders, products):
     valid_orders.clear()
     invalid_orders.clear()
     for order in orders:
         valid=True
+        
+        if not order["items"] or order["payment_status"] not in ["paid", "pending"]:
+            valid=False
         for item in order["items"]:
-            product_id=item["product_id"]
-            quantity=item["quantity"]
-            if product_id not in products or quantity <= 0 or quantity > products[product_id]["stock"]:
-               valid=False
-               break
-        if valid:       
+            product_id = item["product_id"]
+            quantity = item["quantity"]
+            if (product_id not in products or quantity <= 0 or (product_id in products and quantity > products[product_id]["stock"])):
+                valid = False
+                break
+        if valid:
             valid_orders.append(order)
-        else:   
+        else:
             invalid_orders.append(order)
+
+    
+
                 
             
 
@@ -59,6 +66,9 @@ def validate_orders(orders, products):
     
 orders_subtotal=[]
 def calculate_subtotal():
+    if not orders:
+        print("No orders available!")
+        return
     orders_subtotal.clear()
     if valid_orders:
         
@@ -159,6 +169,10 @@ spending_of_customer={}
 max_spending=0
 def genrate_customer_report():
     global max_spending
+    
+    spending_of_customer.clear()
+    top_customer.clear()
+    max_spending=0
     for order in orders_subtotal:
         name=order['customer']
         subtotal=order['new_subtotal']
@@ -211,17 +225,18 @@ def low_stock():
     global lowstock_products
     least_quantity = float('inf')
     lowstock_products.clear()
+    low_stock_limit = 5
 
     for product_id, product in products.items():
-        stock = product['stock']
+        stock =product["stock"]
 
-        if stock < least_quantity:
-            least_quantity = stock
-            lowstock_products = {product_id: stock}
-        elif stock == least_quantity:
-            lowstock_products[product_id] = stock
+        if stock < low_stock_limit:
+            lowstock_products[product_id] =stock
 
-                        
+    if not lowstock_products:
+        print("No low-stock products found!")
+    else:
+        print(lowstock_products)
                         
                         
 # Checking for total orders
@@ -262,4 +277,5 @@ print(f"Low stock products: {lowstock_products}")
 
 
 
+    
     
