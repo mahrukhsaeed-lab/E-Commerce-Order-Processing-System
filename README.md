@@ -6,9 +6,9 @@ This is a small Python project that checks a list of orders and prints a sales r
 
 Open a terminal in this folder and run:
 
-```powershell
-python order_processing_system.py
-```
+
+python order_processing_.py
+
 
 It uses the products and orders already written in the Python file, so there is no setup or extra package to install.
 
@@ -22,7 +22,7 @@ The report shows order counts, revenue, discounts, shipping, the top customer, b
 
 ## Changing the examples
 
-The sample product list and orders are near the top of `order_processing_system.py`. You can edit them or add your own. For example, an order looks like this:
+The sample product list and orders are near the top of `order_processing.py`. You can edit them or add your own. For example, an order looks like this:
 
 ```python
 {
