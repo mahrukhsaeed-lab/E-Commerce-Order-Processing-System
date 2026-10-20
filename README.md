@@ -24,13 +24,11 @@ The report shows order counts, revenue, discounts, shipping, the top customer, b
 
 The sample product list and orders are near the top of `order_processing.py`. You can edit them or add your own. For example, an order looks like this:
 
-```python
-{
+
     "order_id": "ORD004",
     "customer": "Sam",
     "items": [{"product_id": "P005", "quantity": 1}],
     "payment_status": "paid"
-}
-```
+
 
 The product ID in the order needs to match one in the product list. The program keeps everything in memory, so changes to stock aren't saved after it exits.
